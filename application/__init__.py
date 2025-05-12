@@ -1,10 +1,11 @@
-from flask import Flask, request
+from flask import Flask, Blueprint, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_babel import Babel
+from flask_restful import Resource, Api
 from config import config
 
 db = SQLAlchemy()
-babel = Babel()
+api_bp = Blueprint('api', __name__)
+api = Api(api_bp)
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -12,11 +13,11 @@ def create_app(config_name):
     config[config_name].init_app(app)
 
     db.init_app(app)
-    babel.init_app(app)
 
     # moduls
-    # from .main import main as main_blueprint
-    # app.register_blueprint(main_blueprint)
+    from .main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
+    app.register_blueprint(api_bp)
 
     return app
 

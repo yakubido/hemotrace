@@ -1,2 +1,6 @@
+.vscode/
 .history/
 .flaskenv
+
+# Compiled Python bytecode
+*.py[cod]

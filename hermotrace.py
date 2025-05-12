@@ -1,12 +1,11 @@
 import os, config
 import click
-from flask_migrate import Migrate
-from application import db
-
+# from flask_migrate import Migrate
+from application import db, api
 from application import create_app
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
 @app.shell_context_processor
 def make_shell_context():
