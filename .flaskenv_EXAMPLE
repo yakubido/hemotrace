@@ -1,0 +1,3 @@
+FLASK_APP=hemotracer
+FLASK_CONFIG=production
+FLASK_DEBUG=0

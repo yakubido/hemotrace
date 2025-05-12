@@ -1,0 +1,27 @@
+from flask import Flask, request
+from flask_sqlalchemy import SQLAlchemy
+from flask_babel import Babel
+from config import config
+
+db = SQLAlchemy()
+babel = Babel()
+
+def create_app(config_name):
+    app = Flask(__name__)
+    app.config.from_object(config[config_name])
+    config[config_name].init_app(app)
+
+    db.init_app(app)
+    babel.init_app(app)
+
+    # moduls
+    # from .main import main as main_blueprint
+    # app.register_blueprint(main_blueprint)
+
+    return app
+
+def get_locale(config_name):
+    return request.accept_languages.best_match(config[config_name].LOCALES)
+
+def get_timezone(config_name):
+    return config[config_name].DEFAULT_TIMEZONE

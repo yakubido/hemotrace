@@ -1,0 +1,28 @@
+services:
+  core:
+    build: .
+    container_name: hemotrace_core
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/hemotrace
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:17
+    container_name: hemotrace_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: hemotrace
+    ports:
+      - "5432:5432"
+    volumes:
+      - hemotrace_pgdata:/var/lib/postgresql/data
+
+volumes:
+  hemotrace_pgdata:
