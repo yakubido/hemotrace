@@ -9,15 +9,14 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
+RUN pip install --upgrade pip
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+RUN useradd -m app
+USER app
 
-ENV FLASK_APP=hemotracer
-ENV FLASK_ENV=development
-ENV FLASK_DEBUG=1
-ENV DEFAULT_TIMEZONE="Europe/Minsk"
-ENV VERSION=0.0.1
-
-CMD ["flask", "run", "--host=0.0.0.0"]
+COPY /application .
+COPY .flaskenv_EXAMPLE .flaskenv
+COPY config.py .
+COPY hemotrace.py .

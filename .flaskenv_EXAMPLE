@@ -1,3 +1,6 @@
-FLASK_APP=hemotracer
+FLASK_APP=hemotrace
 FLASK_CONFIG=production
 FLASK_DEBUG=0
+VERSION=0.0.1
+SECRET_KEY=019283129FGHGC+ASD*&2
+DATABASE_URL=postgresql://postgres:postgres@db:5432/hemotrace
