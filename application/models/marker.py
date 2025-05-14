@@ -7,8 +7,8 @@ from typing import Optional
 
 
 class Marker(db.Model):
-    __table__ = 'markers'
-    id: orm.Mapped[int] = orm.mapped_column(INTEGER(unsigned=True), primary_key=True)
+    __tablename__ = 'markers'
+    id: orm.Mapped[int] = orm.mapped_column(INTEGER(), primary_key=True)
     name: orm.Mapped[str] = orm.mapped_column(sa.String(255), unique=True, nullable=False)
     unit: orm.Mapped[str] = orm.mapped_column(sa.String(50))
     normal_min: orm.Mapped[float] = orm.mapped_column(FLOAT(2))
@@ -19,9 +19,9 @@ class Marker(db.Model):
 class AnalysisMarker(db.Model):
     __tablename__ = 'analysis_markers'
 
-    id: orm.Mapped[int] = orm.mapped_column(INTEGER(unsigned=True), primary_key=True)
-    analysis_id: orm.Mapped[int] = orm.mapped_column(INTEGER(unsigned=True), sa.ForeignKey('analysis.id'), nullable=False)
-    marker_id: orm.Mapped[int] = orm.mapped_column(INTEGER(unsigned=True), sa.ForeignKey('markers.id'), nullable=False)
+    id: orm.Mapped[int] = orm.mapped_column(INTEGER(), primary_key=True)
+    analysis_id: orm.Mapped[int] = orm.mapped_column(INTEGER(), sa.ForeignKey('analysis.id'), nullable=False)
+    marker_id: orm.Mapped[int] = orm.mapped_column(INTEGER(), sa.ForeignKey('markers.id'), nullable=False)
     value: orm.Mapped[float] = orm.mapped_column(FLOAT(2), nullable=False)
 
     marker: orm.Mapped['Marker'] = orm.relationship(back_populates='markers')
