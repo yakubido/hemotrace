@@ -1,0 +1,3 @@
+[submodule "hemotrace_ocr"]
+	path = hemotrace_ocr
+	url = git@github.com:yakubido/hemotrace_ocr.git

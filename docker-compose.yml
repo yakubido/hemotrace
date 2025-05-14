@@ -1,0 +1,36 @@
+services:
+  core:
+    build: .
+    command: gunicorn --bind 0.0.0.0:5000 hemotrace:app
+    container_name: hemotrace_core
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/hemotrace
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    env_file:
+      - ./.flaskenv
+
+  db:
+    image: postgres:17
+    container_name: hemotrace_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: hemotrace
+    ports:
+      - "5432:5432"
+    volumes:
+      - hemotrace_pgdata:/var/lib/postgresql/data
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - core
+
+volumes:
+  hemotrace_pgdata:
